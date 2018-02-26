@@ -1,6 +1,5 @@
 package br.com.testadorsql.tela;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import br.com.testadorsql.controlador.ControladorPrincipal;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
 
 public class TelaPrincipal {
 
@@ -17,27 +18,11 @@ public class TelaPrincipal {
 	private ControladorPrincipal controladorPrincipal;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal window = new TelaPrincipal();
-					window.frmPrincipal.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public TelaPrincipal() {
 		initialize();
-		controladorPrincipal = new ControladorPrincipal();
+		controladorPrincipal = new ControladorPrincipal(this);
 	}
 
 	/**
@@ -45,6 +30,7 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frmPrincipal = new JFrame();
+		frmPrincipal.setType(Type.POPUP);
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setTitle("Principal");
 		frmPrincipal.setBounds(100, 100, 450, 300);
@@ -64,6 +50,44 @@ public class TelaPrincipal {
 		});
 		mnArquivo.add(mntmSair);
 		
+		JMenu mnPrograma = new JMenu("Programa");
+		menuBar.add(mnPrograma);
+		
+		JMenuItem mntmNovoTeste = new JMenuItem("Criar script");
+		mntmNovoTeste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrincipal.criarScript();
+			}
+		});
+		mnPrograma.add(mntmNovoTeste);
+		
+		JMenuItem mntmCriarPlanoDe = new JMenuItem("Criar plano de teste");
+		mntmCriarPlanoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrincipal.criarPlanoDeTeste();
+			}
+		});
+		mnPrograma.add(mntmCriarPlanoDe);
+		
+		JMenuItem mntmTestarSql = new JMenuItem("Executar plano");
+		mntmTestarSql.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrincipal.execucaoSQL();
+			}
+		});
+		mnPrograma.add(mntmTestarSql);
+		
+		JMenu mnConfiguracao = new JMenu("Configuracao");
+		menuBar.add(mnConfiguracao);
+		
+		JMenuItem mntmBancoDeDados = new JMenuItem("Banco de dados");
+		mntmBancoDeDados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrincipal.configuracaoBancoDeDados();
+			}
+		});
+		mnConfiguracao.add(mntmBancoDeDados);
+		
 		JMenu mnAjuda = new JMenu("Ajuda");
 		menuBar.add(mnAjuda);
 		
@@ -74,6 +98,34 @@ public class TelaPrincipal {
 			}
 		});
 		mnAjuda.add(mntmSobre);
+	}
+	
+	public void show(){
+		frmPrincipal.setVisible(true);
+	}
+	
+	public void sairDaAplicacao(){
+		System.exit(0);
+	}
+	
+	public void exibirTelaSobre(){
+		FabricaTela.criarTelaSobre().setVisible(true);
+	}
+	
+	public void exibirTelaExecucao(){
+		FabricaTela.criarTelaExecucao().setVisible(true);
+	}
+
+	public void exibirConfigurarBancoDeDados() {
+		FabricaTela.criarTelaConfigurarBancoDeDados().setVisible(true);		
+	}
+
+	public void exibirTelaCriarTeste() {
+		FabricaTela.criarTelaCriarTeste().setVisible(true);		
+	}
+
+	public void exibirTelaPlanoDeTeste() {
+		FabricaTela.criarTelaPlanoDeTeste().setVisible(true);	
 	}
 
 }

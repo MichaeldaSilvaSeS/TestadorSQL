@@ -2,34 +2,35 @@ package br.com.testadorsql.tela;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import java.awt.Dialog.ModalityType;
+import java.awt.Dialog.ModalExclusionType;
 
-public class TelaSobre extends JFrame {
-	private static final long serialVersionUID = 5244214318494192649L;
+public class TelaSobre extends JDialog {
+	private static final long serialVersionUID = 7109963459237230651L;
 	
-	private JPanel contentPane;
+	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaSobre() {
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setTitle("Sobre");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setType(Type.POPUP);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JTextArea txtrProjetoFuiCriado = new JTextArea();
-		txtrProjetoFuiCriado.setLineWrap(true);
-		txtrProjetoFuiCriado.setEditable(false);
-		txtrProjetoFuiCriado.setText("Projeto fui criado para possibilitar a execu\u00E7\u00E3o de testes unt\u00E1rios de programas escritos em SQL");
-		contentPane.add(txtrProjetoFuiCriado, BorderLayout.CENTER);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		{
+			JTextArea txtrProjetoFuiCriado = new JTextArea();
+			txtrProjetoFuiCriado.setLineWrap(true);
+			txtrProjetoFuiCriado.setText("  Projeto fui criado para possibilitar a execu\u00E7\u00E3o de testes unt\u00E1rios de programas escritos em SQL");
+			contentPanel.add(txtrProjetoFuiCriado, BorderLayout.CENTER);
+		}
 	}
-
 }
