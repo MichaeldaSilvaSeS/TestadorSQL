@@ -1,5 +1,7 @@
 package br.com.testadorsql.tela;
 
+import java.awt.EventQueue;
+import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,27 +9,27 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-import br.com.testadorsql.controlador.ControladorPrincipal;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
+import javax.swing.UIManager;
 
 public class TelaPrincipal {
-
+	public static interface OuvinteTelaPrincipal{
+		public void sair();
+		public void criarScript();
+		public void criarPlanoDeTeste();
+		public void execucaoSQL();
+		public void configuracaoBancoDeDados();
+		public void sobre();
+	}
+		
 	private JFrame frmPrincipal;
-	private ControladorPrincipal controladorPrincipal;
-
-	/**
-	 * Create the application.
-	 */
-	public TelaPrincipal() {
+	private OuvinteTelaPrincipal ouvinteTelaPrincipal;
+	private FabricaTela fabricaTela;
+	
+	public TelaPrincipal(FabricaTela fabricaTela) {
+		this.fabricaTela = fabricaTela;
 		initialize();
-		controladorPrincipal = new ControladorPrincipal(this);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmPrincipal = new JFrame();
 		frmPrincipal.setType(Type.POPUP);
@@ -45,7 +47,7 @@ public class TelaPrincipal {
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mntmSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.sair();
+				ouvinteTelaPrincipal.sair();
 			}
 		});
 		mnArquivo.add(mntmSair);
@@ -56,7 +58,7 @@ public class TelaPrincipal {
 		JMenuItem mntmNovoTeste = new JMenuItem("Criar script");
 		mntmNovoTeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.criarScript();
+				ouvinteTelaPrincipal.criarScript();
 			}
 		});
 		mnPrograma.add(mntmNovoTeste);
@@ -64,7 +66,7 @@ public class TelaPrincipal {
 		JMenuItem mntmCriarPlanoDe = new JMenuItem("Criar plano de teste");
 		mntmCriarPlanoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.criarPlanoDeTeste();
+				ouvinteTelaPrincipal.criarPlanoDeTeste();
 			}
 		});
 		mnPrograma.add(mntmCriarPlanoDe);
@@ -72,7 +74,7 @@ public class TelaPrincipal {
 		JMenuItem mntmTestarSql = new JMenuItem("Executar plano");
 		mntmTestarSql.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.execucaoSQL();
+				ouvinteTelaPrincipal.execucaoSQL();
 			}
 		});
 		mnPrograma.add(mntmTestarSql);
@@ -83,7 +85,7 @@ public class TelaPrincipal {
 		JMenuItem mntmBancoDeDados = new JMenuItem("Banco de dados");
 		mntmBancoDeDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.configuracaoBancoDeDados();
+				ouvinteTelaPrincipal.configuracaoBancoDeDados();
 			}
 		});
 		mnConfiguracao.add(mntmBancoDeDados);
@@ -94,14 +96,14 @@ public class TelaPrincipal {
 		JMenuItem mntmSobre = new JMenuItem("Sobre");
 		mntmSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorPrincipal.sobre();
+				ouvinteTelaPrincipal.sobre();
 			}
 		});
 		mnAjuda.add(mntmSobre);
 	}
 	
-	public void show(){
-		frmPrincipal.setVisible(true);
+	public void setOuvinte(OuvinteTelaPrincipal ouvinteTelaPrincipal){
+		this.ouvinteTelaPrincipal = ouvinteTelaPrincipal;
 	}
 	
 	public void sairDaAplicacao(){
@@ -109,23 +111,35 @@ public class TelaPrincipal {
 	}
 	
 	public void exibirTelaSobre(){
-		FabricaTela.criarTelaSobre().setVisible(true);
+		fabricaTela.criarTelaSobre().exibir();
 	}
 	
 	public void exibirTelaExecucao(){
-		FabricaTela.criarTelaExecucao().setVisible(true);
+		fabricaTela.criarTelaExecucao().exibir();
 	}
 
 	public void exibirConfigurarBancoDeDados() {
-		FabricaTela.criarTelaConfigurarBancoDeDados().setVisible(true);		
+		fabricaTela.criarTelaConfigurarBancoDeDados().exibir();		
 	}
 
 	public void exibirTelaCriarTeste() {
-		FabricaTela.criarTelaCriarTeste().setVisible(true);		
+		fabricaTela.criarTelaCriarTeste().exibir();		
 	}
 
 	public void exibirTelaPlanoDeTeste() {
-		FabricaTela.criarTelaPlanoDeTeste().setVisible(true);	
+		fabricaTela.criarTelaPlanoDeTeste().exibir();	
+	}
+
+	public void exibir() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frmPrincipal.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});		
 	}
 
 }

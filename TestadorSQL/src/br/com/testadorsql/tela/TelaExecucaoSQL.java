@@ -3,21 +3,18 @@ package br.com.testadorsql.tela;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Dialog.ModalityType;
-import java.awt.Window.Type;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import java.awt.Dialog.ModalExclusionType;
 
-public class TelaExecucaoSQL extends JDialog {
+public class TelaExecucaoSQL extends JDialog implements Tela{
 	private static final long serialVersionUID = -8823657124907684370L;
 	
 	private final JPanel contentPanel = new JPanel();
@@ -58,14 +55,14 @@ public class TelaExecucaoSQL extends JDialog {
 				table.setShowVerticalLines(false);
 				table.setModel(new DefaultTableModel(
 					new Object[][] {
-						{null, null, null},
+						{null, null, null, null},
 					},
 					new String[] {
-						"Status", "Script", "Momento"
+						"Status", "Script", "Tipo", "Momento"
 					}
 				) {
 					boolean[] columnEditables = new boolean[] {
-						false, false, false
+						false, false, true, false
 					};
 					public boolean isCellEditable(int row, int column) {
 						return columnEditables[column];
@@ -74,7 +71,7 @@ public class TelaExecucaoSQL extends JDialog {
 				table.getColumnModel().getColumn(0).setResizable(false);
 				table.getColumnModel().getColumn(1).setResizable(false);
 				table.getColumnModel().getColumn(1).setPreferredWidth(266);
-				table.getColumnModel().getColumn(2).setResizable(false);
+				table.getColumnModel().getColumn(3).setResizable(false);
 				scrollPane.setViewportView(table);
 			}
 		}
@@ -108,5 +105,10 @@ public class TelaExecucaoSQL extends JDialog {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(100, 7, 332, 22);
 		contentPanel.add(comboBox);
+	}
+	
+	@Override
+	public void exibir() {
+		setVisible(true);
 	}
 }

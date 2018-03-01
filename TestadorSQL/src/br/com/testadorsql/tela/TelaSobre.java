@@ -6,10 +6,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-import java.awt.Dialog.ModalityType;
-import java.awt.Dialog.ModalExclusionType;
 
-public class TelaSobre extends JDialog {
+public class TelaSobre extends JDialog implements Tela {
 	private static final long serialVersionUID = 7109963459237230651L;
 	
 	private final JPanel contentPanel = new JPanel();
@@ -29,8 +27,13 @@ public class TelaSobre extends JDialog {
 		{
 			JTextArea txtrProjetoFuiCriado = new JTextArea();
 			txtrProjetoFuiCriado.setLineWrap(true);
-			txtrProjetoFuiCriado.setText("  Projeto fui criado para possibilitar a execu\u00E7\u00E3o de testes unt\u00E1rios de programas escritos em SQL");
+			txtrProjetoFuiCriado.setText("Projeto fui criado para possibilitar a execu\u00E7\u00E3o de    testes unt\u00E1rios de programas escritos em SQL");
 			contentPanel.add(txtrProjetoFuiCriado, BorderLayout.CENTER);
 		}
+	}
+
+	@Override
+	public void exibir() {
+		setVisible(true);
 	}
 }

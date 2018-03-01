@@ -1,43 +1,37 @@
 package br.com.testadorsql.tela;
 
-import java.awt.EventQueue;
-import java.awt.Window;
+import javax.swing.UIManager;
 
 public class FabricaTela {
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					criarTelaPrincipal().show();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	static{
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (Exception e) {
+			System.out.println("LookAndFeel=disabled");
+		}
 	}
 	
-	public static TelaSobre criarTelaSobre(){
+	public TelaSobre criarTelaSobre(){
 		return new TelaSobre();
 	}
 	
-	public static TelaExecucaoSQL criarTelaExecucao(){
+	public TelaExecucaoSQL criarTelaExecucao(){
 		return new TelaExecucaoSQL();
 	}
 
-	public static TelaPrincipal criarTelaPrincipal(){
-		return new TelaPrincipal();
+	public TelaPrincipal criarTelaPrincipal(FabricaTela fabricaTela){
+		return new TelaPrincipal(fabricaTela);
 	}
 	
-	public static TelaConfiguracaoBancoDeDados criarTelaConfigurarBancoDeDados(){
+	public TelaConfiguracaoBancoDeDados criarTelaConfigurarBancoDeDados(){
 		return new TelaConfiguracaoBancoDeDados();
 	}
 
-	public static TelaCriarTeste criarTelaCriarTeste() {
-		return new TelaCriarTeste();
+	public TelaCriarScript criarTelaCriarTeste() {
+		return new TelaCriarScript();
 	}
 
-	public static Window criarTelaPlanoDeTeste() {
+	public TelaPlanoTeste criarTelaPlanoDeTeste() {
 		return new TelaPlanoTeste();
 	}
 }

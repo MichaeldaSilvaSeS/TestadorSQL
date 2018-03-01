@@ -8,11 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Dialog.ModalityType;
-import java.awt.Window.Type;
 
-public class TelaConfiguracaoBancoDeDados extends JDialog {
+public class TelaConfiguracaoBancoDeDados extends JDialog implements Tela {
 	private static final long serialVersionUID = 2519490420752153984L;
 	private JTable table;
 
@@ -49,7 +46,6 @@ public class TelaConfiguracaoBancoDeDados extends JDialog {
 			new Object[][] {
 				{"Driver", ""},
 				{"String de Conexao", null},
-				{"Caminho da biblioteca", null},
 			},
 			new String[] {
 				"Propriedade", "Valor"
@@ -66,5 +62,10 @@ public class TelaConfiguracaoBancoDeDados extends JDialog {
 		table.getColumnModel().getColumn(1).setPreferredWidth(240);
 		scrollPane.setViewportView(table);
 
+	}
+	
+	@Override
+	public void exibir() {
+		setVisible(true);
 	}
 }

@@ -1,45 +1,30 @@
 package br.com.testadorsql.tela;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import java.awt.Dialog.ModalityType;
-import java.awt.Window.Type;
-import javax.swing.DropMode;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Dialog.ModalExclusionType;
+import javax.swing.border.EmptyBorder;
 
-public class TelaCriarTeste extends JDialog {
-
+public class TelaCriarScript extends JDialog implements Tela{
+	private static final long serialVersionUID = 3909980133737965531L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			TelaCriarTeste dialog = new TelaCriarTeste();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public TelaCriarTeste() {
+	public TelaCriarScript() {
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setResizable(false);
 		setTitle("Criar script");
@@ -73,13 +58,22 @@ public class TelaCriarTeste extends JDialog {
 		contentPanel.add(lblScript);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnSalvar.setBounds(341, 36, 91, 61);
 		contentPanel.add(btnSalvar);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 133, 422, 309);
+		contentPanel.add(scrollPane);
+		
 		JTextArea txtr = new JTextArea();
-		txtr.setLineWrap(true);
-		txtr.setBounds(10, 133, 422, 309);
-		contentPanel.add(txtr);
+		scrollPane.setViewportView(txtr);
+		txtr.setTabSize(4);
+		txtr.setWrapStyleWord(true);
 		
 		JLabel label = new JLabel("Tipo");
 		label.setBounds(225, 11, 29, 14);
@@ -92,5 +86,10 @@ public class TelaCriarTeste extends JDialog {
 		comboBox.setBounds(264, 7, 168, 22);
 		contentPanel.add(comboBox);
 		comboBox.setMaximumRowCount(4);
+	}
+	
+	@Override
+	public void exibir() {
+		setVisible(true);
 	}
 }

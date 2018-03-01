@@ -1,15 +1,17 @@
 package br.com.testadorsql.controlador;
 
 import br.com.testadorsql.tela.TelaPrincipal;
+import br.com.testadorsql.tela.TelaPrincipal.OuvinteTelaPrincipal;
 
-public class ControladorPrincipal {
+public class ControladorPrincipal implements OuvinteTelaPrincipal{
 	
 	private TelaPrincipal telaPrincipal;
 
 	public ControladorPrincipal(TelaPrincipal telaPrincipal) {
 		this.telaPrincipal = telaPrincipal;
+		this.telaPrincipal.setOuvinte(this);
 	}
-
+	
 	public void sair(){
 		telaPrincipal.sairDaAplicacao();
 	}
@@ -32,6 +34,10 @@ public class ControladorPrincipal {
 
 	public void criarPlanoDeTeste() {
 		telaPrincipal.exibirTelaPlanoDeTeste();
+	}
+	
+	public void exibir(){
+		telaPrincipal.exibir();
 	}
 
 }
