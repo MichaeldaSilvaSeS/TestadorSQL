@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class FabricaDeConexaoRemota {
+class FabricaDeConexaoRemota {
 	
-	private FabricaDeConexao fabricaDeConexao;
+	private FabricaDeConexaoLocal fabricaDeConexao;
 
-	public FabricaDeConexaoRemota(FabricaDeConexao fabricaDeConexao) {
+	public FabricaDeConexaoRemota(FabricaDeConexaoLocal fabricaDeConexao) {
 		super();
 		this.fabricaDeConexao = fabricaDeConexao;
 	}
@@ -41,4 +42,15 @@ public class FabricaDeConexaoRemota {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public boolean testarConexao(String driver,String stringDeConexao, String usuario, String senha) throws ClassNotFoundException, SQLException{
+		Class.forName(driver);
+		Connection conexao = DriverManager.getConnection(stringDeConexao, usuario, senha);
+		if(!conexao.isClosed()){
+			conexao.close();
+			return true;
+		}		
+		return false;		
+	}
+	
 }

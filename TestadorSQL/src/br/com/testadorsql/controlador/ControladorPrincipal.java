@@ -3,13 +3,15 @@ package br.com.testadorsql.controlador;
 import br.com.testadorsql.tela.TelaPrincipal;
 import br.com.testadorsql.tela.TelaPrincipal.OuvinteTelaPrincipal;
 
-public class ControladorPrincipal implements OuvinteTelaPrincipal{
+public class ControladorPrincipal implements OuvinteTelaPrincipal, Controlador{
 	
 	private TelaPrincipal telaPrincipal;
+	private FabricaControlador fabricaControlador;
 
-	public ControladorPrincipal(TelaPrincipal telaPrincipal) {
+	public ControladorPrincipal(TelaPrincipal telaPrincipal, FabricaControlador fabricaControlador) {
 		this.telaPrincipal = telaPrincipal;
 		this.telaPrincipal.setOuvinte(this);
+		this.fabricaControlador = fabricaControlador;
 	}
 	
 	public void sair(){
@@ -25,7 +27,7 @@ public class ControladorPrincipal implements OuvinteTelaPrincipal{
 	}
 
 	public void configuracaoBancoDeDados() {
-		telaPrincipal.exibirConfigurarBancoDeDados();
+		fabricaControlador.criarControladorConfiguracaoBancoDeDados().carregar();
 	}
 
 	public void criarScript() {
@@ -35,9 +37,11 @@ public class ControladorPrincipal implements OuvinteTelaPrincipal{
 	public void criarPlanoDeTeste() {
 		telaPrincipal.exibirTelaPlanoDeTeste();
 	}
-	
-	public void exibir(){
+
+	@Override
+	public void carregar() {
 		telaPrincipal.exibir();
-	}
+		
+	}	
 
 }

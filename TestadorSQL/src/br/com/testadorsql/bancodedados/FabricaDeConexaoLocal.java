@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
-public class FabricaDeConexao {
+class FabricaDeConexaoLocal {
 	private static ResourceBundle CONFIGURACAO_CONEXAO = ResourceBundle.getBundle("br.com.testadorsql.bancodedados.bundle.conexao");
 	private static String DRIVE;
 	private static String URL;
@@ -52,25 +52,37 @@ public class FabricaDeConexao {
 	
 	public void executaSQLDeCriacao(){
 		Enumeration<String> keys = CONFIGURACAO_CONEXAO.getKeys();
+		Connection conexao = null;
+		PreparedStatement statement = null;
 		try {
 			
-			Connection conexao = criarConexao();
+			conexao = criarConexao();
 			while(keys.hasMoreElements()){
 				String key = keys.nextElement();
 				
 				if(key.startsWith(PREFIXO_COMANDO_SQL) && key.endsWith("_create")){
-					PreparedStatement statement = criarComandoSQL(conexao, key.substring(PREFIXO_COMANDO_SQL.length()));
+					statement = criarComandoSQL(conexao, key.substring(PREFIXO_COMANDO_SQL.length()));
 					statement.execute();
 					
 					if(!statement.isClosed())
 						statement.close();
 				}
 			}
-			
-			if(!conexao.isClosed())
-				conexao.close();
+			conexao.commit();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}finally{
+			try {
+				
+				if (statement != null && !statement.isClosed())
+					statement.close();
+				
+				if(conexao != null && !conexao.isClosed())
+					conexao.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
