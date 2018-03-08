@@ -60,7 +60,7 @@ public class TelaPrincipal {
 				ouvinteTelaPrincipal.criarScript();
 			}
 		});
-		mnPrograma.add(mntmNovoTeste);
+		//mnPrograma.add(mntmNovoTeste);
 		
 		JMenuItem mntmCriarPlanoDe = new JMenuItem("Criar plano de teste");
 		mntmCriarPlanoDe.addActionListener(new ActionListener() {
@@ -122,7 +122,7 @@ public class TelaPrincipal {
 	}
 
 	public void exibirTelaCriarTeste() {
-		fabricaTela.criarTelaCriarTeste().exibir();		
+		fabricaTela.criarTelaCriarScript().exibir();		
 	}
 
 	public void exibirTelaPlanoDeTeste() {

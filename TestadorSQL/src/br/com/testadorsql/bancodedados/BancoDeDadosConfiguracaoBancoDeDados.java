@@ -1,7 +1,10 @@
 package br.com.testadorsql.bancodedados;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import br.com.testadorsql.modelo.ModeloConfiguracaoBancoDeDados;
 
 public class BancoDeDadosConfiguracaoBancoDeDados {
 	private FabricaDeConexaoRemota fabricaDeConexaoRemota;
@@ -29,5 +32,22 @@ public class BancoDeDadosConfiguracaoBancoDeDados {
 	
 	public boolean testarConexao(String driver,String stringDeConexao, String usuario, String senha) throws ClassNotFoundException, SQLException{
 		return fabricaDeConexaoRemota.testarConexao(driver, stringDeConexao, usuario, senha);	
+	}
+
+	public ModeloConfiguracaoBancoDeDados pesquisarConfiguracao() {
+		try {
+			PreparedStatement criarComandoSQL = fabricaDeConexaoLocal.criarComandoSQL("conexao_remota_select");
+			ResultSet rs = criarComandoSQL.executeQuery();
+			ModeloConfiguracaoBancoDeDados configuracaoBancoDeDados = new ModeloConfiguracaoBancoDeDados();
+			while(rs.next()){
+				configuracaoBancoDeDados.setDriver(rs.getString("driver"));
+				configuracaoBancoDeDados.setStringDeConexao(rs.getString("string_de_conexao"));
+				configuracaoBancoDeDados.setUsuario(rs.getString("usuario"));
+				configuracaoBancoDeDados.setSenha(rs.getString("senha"));
+			}
+			return configuracaoBancoDeDados;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

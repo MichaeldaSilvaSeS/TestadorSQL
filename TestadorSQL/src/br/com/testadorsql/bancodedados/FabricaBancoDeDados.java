@@ -14,6 +14,18 @@ public class FabricaBancoDeDados {
 		return new BancoDeDadosConfiguracaoBancoDeDados(fabricaDeConexaoLocal, fabricaDeConexaoRemota);
 	}
 	
+	public BancoDeDadosTipoDeScript criarBancoDeDadosTipoDeScript(){
+		return new BancoDeDadosTipoDeScript(fabricaDeConexaoLocal);
+	}
+	
+	public BancoDeDadosScript criarBancoDeDadosScript(){
+		return new BancoDeDadosScript(fabricaDeConexaoLocal);
+	}
+	
+	public BancoDeDadosPlanoDeTeste criarBancoDeDadosPlanoDeTeste(){
+		return new BancoDeDadosPlanoDeTeste(fabricaDeConexaoLocal);
+	}
+	
 	public void executaSQLDeCriacao(){
 		fabricaDeConexaoLocal.executaSQLDeCriacao();
 	}

@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BancoDeDadosPlanoDeTesteBancoDeDados {
+public class BancoDeDadosScript {
 	
 	private FabricaDeConexaoLocal fabricaDeConexao;
 
-	public BancoDeDadosPlanoDeTesteBancoDeDados(FabricaDeConexaoLocal fabricaDeConexao) {
+	public BancoDeDadosScript(FabricaDeConexaoLocal fabricaDeConexao) {
 		super();
 		this.fabricaDeConexao = fabricaDeConexao;
 	}

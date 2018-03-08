@@ -27,7 +27,7 @@ public class FabricaTela {
 		return new TelaConfiguracaoBancoDeDados();
 	}
 
-	public TelaCriarScript criarTelaCriarTeste() {
+	public TelaCriarScript criarTelaCriarScript() {
 		return new TelaCriarScript();
 	}
 

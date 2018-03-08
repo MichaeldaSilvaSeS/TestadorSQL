@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
+import br.com.testadorsql.util.FileUtil;
+
 class FabricaDeConexaoLocal {
 	private static ResourceBundle CONFIGURACAO_CONEXAO = ResourceBundle.getBundle("br.com.testadorsql.bancodedados.bundle.conexao");
+	private static Connection conexao = null;
 	private static String DRIVE;
 	private static String URL;
 	private static String USUARIO;
@@ -18,6 +21,7 @@ class FabricaDeConexaoLocal {
 	static {
 		DRIVE = CONFIGURACAO_CONEXAO.getString("drive").trim();
 		URL = CONFIGURACAO_CONEXAO.getString("url").trim();
+		URL = URL.replace("$path", FileUtil.diretorioAtual().getAbsolutePath());
 		USUARIO = CONFIGURACAO_CONEXAO.getString("usuario").trim();
 		SENHA = CONFIGURACAO_CONEXAO.getString("senha").trim();
 		
@@ -44,7 +48,10 @@ class FabricaDeConexaoLocal {
 	
 	public Connection criarConexao(){
 		try {
-			return DriverManager.getConnection(URL,USUARIO,SENHA);
+			if(conexao == null)
+				conexao = DriverManager.getConnection(URL,USUARIO,SENHA);
+			
+			return conexao;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -71,18 +78,6 @@ class FabricaDeConexaoLocal {
 			conexao.commit();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
-		}finally{
-			try {
-				
-				if (statement != null && !statement.isClosed())
-					statement.close();
-				
-				if(conexao != null && !conexao.isClosed())
-					conexao.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

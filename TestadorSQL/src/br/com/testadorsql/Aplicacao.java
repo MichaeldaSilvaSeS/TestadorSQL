@@ -4,6 +4,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import br.com.testadorsql.bancodedados.FabricaBancoDeDados;
 import br.com.testadorsql.controlador.FabricaControlador;
+import br.com.testadorsql.modelo.FabricaDeModelo;
 import br.com.testadorsql.tela.FabricaTela;
 import br.com.testadorsql.util.ClassLoaderUtil;
 
@@ -15,7 +16,8 @@ public class Aplicacao {
 		fabricaBancoDeDados.executaSQLDeCriacao();
 		
 		FabricaTela fabricaTela = new FabricaTela();
-		FabricaControlador fabricaControlador = new FabricaControlador(fabricaTela, fabricaBancoDeDados);
+		FabricaDeModelo fabricaDeModelo = new FabricaDeModelo();
+		FabricaControlador fabricaControlador = new FabricaControlador(fabricaTela, fabricaBancoDeDados,fabricaDeModelo);
 		fabricaControlador.criarControladorPrincipal().carregar();
 	}
 }

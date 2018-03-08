@@ -115,6 +115,18 @@ public class TelaConfiguracaoBancoDeDados extends JDialog implements Tela {
 		setVisible(true);
 	}
 	
+	
+	public void exibir(String driver,String stringDeConexao, String usuario, String senha) {
+		TableModel model = tblConexao.getModel();
+		
+		int linha = -1;
+		model.setValueAt(driver, ++linha, 1);
+		model.setValueAt(stringDeConexao, ++linha, 1);
+		model.setValueAt(usuario, ++linha, 1);
+		model.setValueAt(senha, ++linha, 1);		
+		exibir();
+	}
+	
 	public void exibirMensagemDeTesteFalha(String mensagem){
 		JOptionPane.showMessageDialog(this, mensagem, "Teste", JOptionPane.WARNING_MESSAGE);
 	}

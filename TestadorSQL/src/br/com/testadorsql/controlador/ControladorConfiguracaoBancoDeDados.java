@@ -3,6 +3,7 @@ package br.com.testadorsql.controlador;
 import java.sql.SQLException;
 
 import br.com.testadorsql.bancodedados.BancoDeDadosConfiguracaoBancoDeDados;
+import br.com.testadorsql.modelo.ModeloConfiguracaoBancoDeDados;
 import br.com.testadorsql.tela.TelaConfiguracaoBancoDeDados;
 import br.com.testadorsql.tela.TelaConfiguracaoBancoDeDados.OuvinteTelaConfiguracaoBancoDeDados;
 
@@ -33,7 +34,10 @@ public class ControladorConfiguracaoBancoDeDados implements OuvinteTelaConfigura
 	@Override
 	public void carregar(){
 		this.telaConfiguracaoBancoDeDados.setOuvinteTelaConfiguracaoBancoDeDados(this);
-		this.telaConfiguracaoBancoDeDados.exibir();
+		ModeloConfiguracaoBancoDeDados pesquisarConfiguracao = this.conexaoConfiguracaoBancoDeDados.pesquisarConfiguracao();
+				
+		this.telaConfiguracaoBancoDeDados.exibir(pesquisarConfiguracao.getDriver(),pesquisarConfiguracao.getStringDeConexao(),
+				pesquisarConfiguracao.getUsuario(),pesquisarConfiguracao.getSenha());
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 class FabricaDeConexaoRemota {
-	
+	private static Connection conexao = null;
 	private FabricaDeConexaoLocal fabricaDeConexao;
 
 	public FabricaDeConexaoRemota(FabricaDeConexaoLocal fabricaDeConexao) {
@@ -36,8 +36,12 @@ class FabricaDeConexaoRemota {
 				string_de_conexao = rs.getString(1);
 			}
 			
-			Class.forName(driver);			
-			return DriverManager.getConnection(string_de_conexao); 
+			Class.forName(driver);
+			
+			if(conexao == null)
+				conexao = DriverManager.getConnection(string_de_conexao);
+			
+			return conexao; 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

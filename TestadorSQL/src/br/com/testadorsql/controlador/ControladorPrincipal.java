@@ -31,11 +31,11 @@ public class ControladorPrincipal implements OuvinteTelaPrincipal, Controlador{
 	}
 
 	public void criarScript() {
-		telaPrincipal.exibirTelaCriarTeste();
+		fabricaControlador.criarControladorCriarScript().carregar();
 	}
 
 	public void criarPlanoDeTeste() {
-		telaPrincipal.exibirTelaPlanoDeTeste();
+		fabricaControlador.criarControladorPlanoDeTeste().carregar();
 	}
 
 	@Override
