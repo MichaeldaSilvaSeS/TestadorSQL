@@ -1,7 +1,5 @@
 package br.com.testadorsql;
 
-import javax.swing.UnsupportedLookAndFeelException;
-
 import br.com.testadorsql.bancodedados.FabricaBancoDeDados;
 import br.com.testadorsql.controlador.FabricaControlador;
 import br.com.testadorsql.modelo.FabricaDeModelo;
@@ -9,7 +7,7 @@ import br.com.testadorsql.tela.FabricaTela;
 import br.com.testadorsql.util.ClassLoaderUtil;
 
 public class Aplicacao {
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) {
 		ClassLoaderUtil.carregarBiblioteca();		
 	
 		FabricaBancoDeDados fabricaBancoDeDados = new FabricaBancoDeDados();

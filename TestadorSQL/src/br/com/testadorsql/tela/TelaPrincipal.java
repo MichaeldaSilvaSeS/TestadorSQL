@@ -121,10 +121,6 @@ public class TelaPrincipal {
 		fabricaTela.criarTelaConfigurarBancoDeDados().exibir();		
 	}
 
-	public void exibirTelaCriarTeste() {
-		fabricaTela.criarTelaCriarScript().exibir();		
-	}
-
 	public void exibirTelaPlanoDeTeste() {
 		fabricaTela.criarTelaPlanoDeTeste().exibir();	
 	}

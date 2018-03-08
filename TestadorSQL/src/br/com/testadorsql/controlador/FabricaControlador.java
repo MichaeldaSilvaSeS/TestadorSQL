@@ -14,6 +14,7 @@ public class FabricaControlador {
 		super();
 		this.fabricaTela = fabricaTela;
 		this.fabricaBancoDeDados = fabricaBancoDeDados;
+		this.fabricaDeModelo = fabricaDeModelo;
 	}
 
 	public final ControladorPrincipal criarControladorPrincipal(){
@@ -22,14 +23,6 @@ public class FabricaControlador {
 	
 	public final ControladorConfiguracaoBancoDeDados criarControladorConfiguracaoBancoDeDados(){
 		return new ControladorConfiguracaoBancoDeDados(fabricaTela.criarTelaConfigurarBancoDeDados(), fabricaBancoDeDados.criarBancoDeDadosConfiguracaoBancoDeDados());
-	}
-	
-	public final ControladorCriarScript criarControladorCriarScript(){
-		return new ControladorCriarScript(fabricaTela.criarTelaCriarScript(), fabricaBancoDeDados.criarBancoDeDadosScript(), criarControladorTipoDeScript());
-	}
-	
-	public final ControladorTipoDeScript criarControladorTipoDeScript(){
-		return new ControladorTipoDeScript(fabricaBancoDeDados.criarBancoDeDadosTipoDeScript());
 	}
 	
 	public final ControladorPlanoDeTeste criarControladorPlanoDeTeste(){

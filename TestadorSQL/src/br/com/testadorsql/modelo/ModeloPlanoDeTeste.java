@@ -28,8 +28,8 @@ public class ModeloPlanoDeTeste {
 		String scriptAcima =  scripts.get(indice-1);
 		String scriptAtual =  scripts.get(indice);
 		
-		scripts.set(indice, scriptAcima);
 		scripts.set(indice-1, scriptAtual);
+		scripts.set(indice, scriptAcima);
 	}
 	
 	public void descerScript(Integer indice){
@@ -39,8 +39,8 @@ public class ModeloPlanoDeTeste {
 		String scriptAtual =  scripts.get(indice);
 		String scriptAbaixo =  scripts.get(indice+1);
 		
-		scripts.set(indice+1, scriptAtual);
-		scripts.set(indice, scriptAbaixo);		
+		scripts.set(indice, scriptAbaixo);
+		scripts.set(indice+1, scriptAtual);	
 	}
 	
 	public String getNome() {

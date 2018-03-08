@@ -31,7 +31,6 @@ public class ControladorPrincipal implements OuvinteTelaPrincipal, Controlador{
 	}
 
 	public void criarScript() {
-		fabricaControlador.criarControladorCriarScript().carregar();
 	}
 
 	public void criarPlanoDeTeste() {

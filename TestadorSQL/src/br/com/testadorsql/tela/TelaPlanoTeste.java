@@ -9,18 +9,23 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
 public class TelaPlanoTeste extends JDialog implements Tela{
 	private static final long serialVersionUID = -1688097473444357380L;
 	
 	public static interface OuvinteTelaPlanoTeste{
-		public void adicionar(Integer id, String script);
+		public void adicionar(Integer indice, String script);
+		public void subir(Integer indice);
+		public void descer(Integer indice);
+		public void salvar();
 	}
 	
 	private JTable tblPlano;
@@ -46,6 +51,8 @@ public class TelaPlanoTeste extends JDialog implements Tela{
 		contentPanel.add(scrollPane);
 		
 		tblPlano = new JTable();
+		tblPlano.setShowVerticalLines(false);
+		tblPlano.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblPlano.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -67,6 +74,11 @@ public class TelaPlanoTeste extends JDialog implements Tela{
 		contentPanel.add(lblNomeDoPlano);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ouvinteTelaPlanoTeste.salvar();
+			}
+		});
 		btnSalvar.setBounds(343, 216, 91, 23);
 		contentPanel.add(btnSalvar);
 		
@@ -91,12 +103,18 @@ public class TelaPlanoTeste extends JDialog implements Tela{
 		contentPanel.add(btnAdicionar);
 		
 		JButton btnAcima = new JButton("Subir");
+		btnAcima.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ouvinteTelaPlanoTeste.subir(tblPlano.getSelectedRow());
+			}
+		});
 		btnAcima.setBounds(10, 216, 91, 23);
 		contentPanel.add(btnAcima);
 		
 		JButton btnBaixo = new JButton("Descer");
 		btnBaixo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ouvinteTelaPlanoTeste.descer(tblPlano.getSelectedRow());
 			}
 		});
 		btnBaixo.setBounds(111, 216, 91, 23);
@@ -108,6 +126,12 @@ public class TelaPlanoTeste extends JDialog implements Tela{
 		model.addRow(new String[]{script});
 	}
 	
+	public void limparListagemDeScript(){
+		DefaultTableModel dm = (DefaultTableModel)tblPlano.getModel();
+		dm.getDataVector().removeAllElements();
+		dm.fireTableDataChanged();
+	}
+	
 	public void setOuvinte(OuvinteTelaPlanoTeste ouvinteTelaPlanoTeste) {
 		this.ouvinteTelaPlanoTeste = ouvinteTelaPlanoTeste;
 	}
@@ -115,5 +139,13 @@ public class TelaPlanoTeste extends JDialog implements Tela{
 	@Override
 	public void exibir() {
 		setVisible(true);
+	}
+	
+	public void exibirMensagemDeTesteFalha(String mensagem){
+		JOptionPane.showMessageDialog(this, mensagem, "Operacao realizada", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void exibirMensagemDeTesteSucesso(String mensagem){
+		JOptionPane.showMessageDialog(this, mensagem, "Operacao realizada", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

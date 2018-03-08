@@ -25,8 +25,36 @@ public class ControladorPlanoDeTeste implements OuvinteTelaPlanoTeste, Controlad
 	}
 
 	@Override
-	public void adicionar(Integer id, String script) {
+	public void adicionar(Integer indice, String script) {
 		this.modeloPlanoDeTeste.incluirScript(script);
 		this.telaPlanoTeste.incluirScriptNaListagem(script);
+	}
+
+	@Override
+	public void subir(Integer indice) {
+		this.modeloPlanoDeTeste.subirScript(indice);
+		this.telaPlanoTeste.limparListagemDeScript();
+		
+		for(String script: modeloPlanoDeTeste.getScripts())
+			this.telaPlanoTeste.incluirScriptNaListagem(script);
+	}
+
+	@Override
+	public void descer(Integer indice) {
+		this.modeloPlanoDeTeste.descerScript(indice);
+		this.telaPlanoTeste.limparListagemDeScript();
+		
+		for(String script: modeloPlanoDeTeste.getScripts())
+			this.telaPlanoTeste.incluirScriptNaListagem(script);
+	}
+
+	@Override
+	public void salvar() {
+		try{
+			bancoDeDadosPlanoDeTeste.salvar(modeloPlanoDeTeste);
+			this.telaPlanoTeste.exibirMensagemDeTesteSucesso("Salvo com sucesso");
+		}catch(Exception e){
+			this.telaPlanoTeste.exibirMensagemDeTesteFalha(e.getMessage());
+		}
 	}
 }
